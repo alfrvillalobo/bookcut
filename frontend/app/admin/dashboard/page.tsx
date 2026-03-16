@@ -183,52 +183,7 @@ export default function DashboardPage() {
           ))}
         </div>
 
-        {/* Gráfico de barras por día */}
-        {ingresos && ingresos.por_dia.length > 0 ? (
-          <div>
-            <p style={{ fontSize: "0.78rem", color: "var(--text-secondary)", marginBottom: "0.75rem" }}>
-              Ingresos por día esta semana
-            </p>
-            <div style={{ display: "flex", alignItems: "flex-end", gap: "0.5rem", height: "80px" }}>
-              {ingresos.por_dia.map((d) => {
-                const maxVal = Math.max(...ingresos.por_dia.map(x => x.ingresos), 1);
-                const height = d.ingresos > 0 ? (d.ingresos / maxVal) * 100 : 4;
-                const isToday = d.date === new Date().toISOString().split("T")[0];
-                return (
-                  <div key={d.date} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: "0.35rem", height: "100%" }}>
-                    <span style={{ fontSize: "0.65rem", color: "var(--accent)", fontWeight: 700, minHeight: "0.9rem" }}>
-                      {d.ingresos > 0 ? `$${(d.ingresos / 1000).toFixed(0)}k` : ""}
-                    </span>
-                    <div style={{ width: "100%", flex: 1, display: "flex", alignItems: "flex-end" }}>
-                      <div style={{
-                        width: "100%",
-                        height: `${height}%`,
-                        background: isToday ? "var(--accent)" : "rgba(0,255,135,0.25)",
-                        borderRadius: "4px 4px 0 0",
-                        transition: "height 0.3s ease",
-                        boxShadow: isToday ? "0 0 10px rgba(0,255,135,0.3)" : "none",
-                      }} />
-                    </div>
-                    <span style={{
-                      fontSize: "0.65rem",
-                      color: isToday ? "var(--accent)" : "var(--text-secondary)",
-                      fontWeight: isToday ? 700 : 400,
-                    }}>
-                      {new Date(d.date + "T12:00:00").toLocaleDateString("es-CL", { weekday: "short" })}
-                    </span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        ) : (
-          <div style={{
-            textAlign: "center", padding: "1rem 0",
-            color: "var(--text-secondary)", fontSize: "0.875rem",
-          }}>
-            <p>Los ingresos se calculan con citas marcadas como <strong style={{ color: "var(--accent)" }}>completadas</strong></p>
-          </div>
-        )}
+        
       </div>
 
         {/* Gráfico */}
