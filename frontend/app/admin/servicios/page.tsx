@@ -26,9 +26,9 @@ export default function ServiciosPage() {
   const [showModal, setShowModal] = useState(false);
   const [editing, setEditing]     = useState<Service | null>(null);
   const [form, setForm]           = useState(empty);
-  const [errors, setErrors]       = useState<Partial<typeof empty>>({});
+  const [errors, setErrors] = useState<{ name?: string; description?: string; price?: string }>({});
   const [loading, setLoading]     = useState(false);
-
+  
   const fetchServices = async () => {
     const res = await api.get("/services/");
     setServices(res.data);
