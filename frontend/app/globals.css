@@ -1,0 +1,227 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg-primary:    #080C10;
+  --bg-secondary:  #0D1117;
+  --bg-card:       #111820;
+  --border:        rgba(255,255,255,0.07);
+  --accent:        #00FF87;
+  --accent-dark:   #00C96B;
+  --accent-soft:   rgba(0,255,135,0.08);
+  --text-primary:  #E8F0E9;
+  --text-secondary:#6B7F70;
+  --success:       #00FF87;
+  --warning:       #FFB800;
+  --danger:        #FF4560;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: "DM Sans", sans-serif;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-primary); }
+::-webkit-scrollbar-thumb { background: rgba(0,255,135,0.2); border-radius: 99px; }
+
+/* Layout */
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  background: var(--bg-primary);
+}
+
+.dashboard-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  margin-left: 240px;
+  transition: margin-left 0.25s ease;
+}
+
+@media (min-width: 1024px) {
+  .sidebar {
+    position: sticky !important;
+    left: 0 !important;
+    top: 0 !important;
+    height: 100vh !important;
+  }
+  .hamburger-btn { display: none !important; }
+  .dashboard-content { margin-left: 0 !important; }
+}
+
+@media (max-width: 1023px) {
+  .dashboard-content { margin-left: 0 !important; }
+  .hamburger-btn { display: flex !important; }
+  .dashboard-layout main { padding: 1rem !important; }
+}
+
+@media (max-width: 768px) {
+  table { display: block; overflow-x: auto; white-space: nowrap; }
+  td, th { padding: 0.75rem 1rem !important; }
+}
+
+/* FullCalendar overrides */
+.fc { font-family: "DM Sans", sans-serif !important; }
+.fc .fc-toolbar-title {
+  font-family: "Sora", sans-serif !important;
+  font-size: 1.1rem !important;
+  color: var(--text-primary) !important;
+}
+.fc .fc-button {
+  background: var(--accent) !important;
+  border-color: var(--accent) !important;
+  color: #080C10 !important;
+  font-weight: 700 !important;
+  font-size: 0.8rem !important;
+}
+.fc .fc-button:hover { opacity: 0.85 !important; }
+.fc-theme-standard td, .fc-theme-standard th { border-color: var(--border) !important; }
+.fc-theme-standard .fc-scrollgrid { border-color: var(--border) !important; }
+.fc .fc-daygrid-day, .fc .fc-timegrid-slot { background: var(--bg-card) !important; }
+.fc .fc-col-header-cell { background: var(--bg-secondary) !important; color: var(--text-secondary) !important; }
+.fc .fc-timegrid-slot-label { color: var(--text-secondary) !important; font-size: 0.75rem !important; }
+.fc .fc-event {
+  background: var(--accent) !important;
+  border-radius: 6px !important;
+  border: none !important;
+  padding: 2px 6px !important;
+  font-size: 0.8rem !important;
+  color: #080C10 !important;
+  font-weight: 600 !important;
+}
+.fc .fc-daygrid-day-number { color: var(--text-secondary) !important; }
+.fc .fc-day-today { background: rgba(0,255,135,0.04) !important; }
+
+/* Altura de slots del calendario */
+.fc .fc-timegrid-slot {
+  height: 50px !important;
+}
+
+.fc .fc-timegrid-slot-label {
+  height: 60px !important;
+}
+
+.fc .fc-event {
+  min-height: 60px !important;
+}
+
+.fc .fc-event-main {
+  padding: 4px 6px !important;
+  overflow: hidden !important;
+}
+
+.fc .fc-timegrid-event {
+  border-radius: 8px !important;
+  box-shadow: 0 0 12px rgba(0,255,135,0.2) !important;
+}
+
+/* Eventos ajustados al slot exacto */
+.fc .fc-timegrid-event {
+  min-height: unset !important;
+  overflow: hidden !important;
+}
+
+.fc .fc-timegrid-event .fc-event-main {
+  padding: 0 !important;
+  overflow: hidden !important;
+  height: 100% !important;
+}
+
+.fc .fc-timegrid-event-harness {
+  overflow: hidden !important;
+}
+
+/* Dashboard responsivo */
+@media (max-width: 768px) {
+  /* Grid de stats — 2 columnas en móvil */
+  .stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Gráfico + agenda — una columna en móvil */
+  .dashboard-charts {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Citas — desktop muestra calendario, móvil muestra lista */
+@media (max-width: 768px) {
+  .citas-layout {
+    display: none !important;
+  }
+
+  .citas-mobile {
+    display: flex !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .citas-layout {
+    display: grid !important;
+  }
+
+  .citas-mobile {
+    display: none !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Calendario ocupa todo el ancho */
+  .fc .fc-toolbar {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+
+  .fc .fc-toolbar-title {
+    font-size: 0.9rem !important;
+  }
+
+  .fc .fc-button {
+    padding: 0.3rem 0.6rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  /* Forzar altura visible en móvil */
+  .fc .fc-timegrid-body {
+    min-height: 400px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Calendario ocupa todo el ancho */
+  .fc .fc-toolbar {
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+  }
+
+  .fc .fc-toolbar-title {
+    font-size: 0.9rem !important;
+  }
+
+  .fc .fc-button {
+    padding: 0.3rem 0.6rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  /* Forzar altura visible en móvil */
+  .fc .fc-timegrid-body {
+    min-height: 400px !important;
+  }
+}
+
+/* Clientes responsivo */
+@media (max-width: 768px) {
+  .clientes-table  { display: none !important; }
+  .clientes-mobile { display: flex !important; }
+}
+
+@media (min-width: 769px) {
+  .clientes-table  { display: block !important; }
+  .clientes-mobile { display: none !important; }
+}
